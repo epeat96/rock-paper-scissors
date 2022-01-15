@@ -12,9 +12,6 @@ let gameStatus = 'prePick';
 const showWinner = ( picked ) => {
 
     let playerPick = pickOptions.filter( ( item ) => item.style.visibility != 'hidden' )[0].id;
-
-    console.log(picked);
-    console.log(playerPick);
     
     if ( picked == playerPick ){
         pickStatus.innerHTML = 'Its a tie!';
