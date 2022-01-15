@@ -1,0 +1,26 @@
+.grid-container{
+    display: inline-grid;
+    grid-template-columns: max-content max-content max-content;
+    grid-column-gap: 5vw;
+}
+
+#rock{
+    width: 12vw;
+    align-self: flex-end;
+}
+
+#paper{
+    width: 15vw;
+}
+
+#scissors{
+    width: 10.5vw;
+}
+
+div{
+    display: flex;
+}
+
+#pickStatus{
+    font-size: 5vw;
+}
