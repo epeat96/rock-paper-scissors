@@ -9,11 +9,63 @@ const opponentPick = document.getElementById('opponentPick');
 let pickOptions = [rock, paper, scissors];
 let gameStatus = 'prePick';
 
-const playSound = (picked) => {
+const showWinner = ( picked ) => {
 
-    if(picked == 'rock'){
+    let playerPick = pickOptions.filter( ( item ) => item.style.visibility != 'hidden' )[0].id;
+
+    console.log(picked);
+    console.log(playerPick);
+    
+    if ( picked == playerPick ){
+        pickStatus.innerHTML = 'Its a tie!';
+        return;
+    }
+    
+    if ( picked == 'scissors'){
+
+        if (playerPick == 'rock'){
+            pickStatus.innerHTML = 'You Win!';
+            return;
+        }
+
+        if (playerPick == 'paper'){
+            pickStatus.innerHTML = 'You Lose!';
+            return;
+        }
+    }
+
+    if ( picked == 'rock'){
+
+        if (playerPick == 'paper'){
+            pickStatus.innerHTML = 'You Win!';
+            return;
+        }
+
+        if (playerPick == 'scissors'){
+            pickStatus.innerHTML = 'You Lose!';
+            return;
+        }
+    }
+
+    if ( picked == 'paper'){
+
+        if (playerPick == 'scissors'){
+            pickStatus.innerHTML = 'You Win!';
+            return;
+        }
+
+        if (playerPick == 'rock'){
+            pickStatus.innerHTML = 'You Lose!';
+            return;
+        }
+    }
+}
+
+const playSound = ( picked ) => {
+
+    if( picked == 'rock' ){
         rockSound.play();
-    } else if(picked == 'paper'){
+    } else if( picked == 'paper' ){
         paperSound.play();
     }else{
         scissorsSound.play();
@@ -33,12 +85,13 @@ const showOpponentPick = (picked) => {
     opponentPick.appendChild(img);
     playSound(picked);
     gameStatus = 'end';
+    showWinner(picked);
 
 }
 
 const takePick = (e) => {
 
-    if ( gameStatus == 'opponentPicking' ){
+    if ( gameStatus == 'postPick' ){
         return;
     }
 
@@ -55,15 +108,12 @@ const takePick = (e) => {
     let picked = e.target.id;
     let notPicked = pickOptions.filter( (item) => item.id != picked );
     notPicked.map( (item) => item.style.visibility = 'hidden' );
-    pickStatus.innerHTML = 'You picked '+picked+'!';
+    pickStatus.innerHTML = 'You picked '+picked+'! <br> Now wait for the computer to pick...';
 
     playSound(picked);
 
-    if ( gameStatus == 'postPick' ){
-        gameStatus = 'opponentPicking';
-        setTimeout(showOpponentPick,4000,opponentPicker());
-        return;
-    }
+    setTimeout(showOpponentPick,4000,opponentPicker());
+    return;
 
 };
 
